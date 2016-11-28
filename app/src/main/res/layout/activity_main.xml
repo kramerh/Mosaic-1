@@ -14,15 +14,29 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout">
+
+        <Button
+            android:text="Create Your Own"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+         />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Browse Mosaics"
-            android:id="@+id/browseText"/>
-
-
+            android:id="@+id/browseText"
+            android:textSize="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
 
     </RelativeLayout>
@@ -30,7 +44,6 @@
 
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/gridview"
-        android:layout_below="@+id/browseText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:columnWidth="180dp"
@@ -40,5 +53,6 @@
         android:stretchMode="columnWidth"
         android:gravity="center"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/relativeLayout" />
 </RelativeLayout>
