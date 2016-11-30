@@ -9,6 +9,8 @@ import android.widget.*;
  * Created by isabellacai on 11/27/16.
  */
 
+//change this so that it gets images from the arraylist
+
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
 
