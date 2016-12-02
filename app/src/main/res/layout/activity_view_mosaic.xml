@@ -1,111 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_view_mosaic"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#E0E0E0"
     tools:context="com.example.isabellacai.mosaic.ViewMosaicActivity">
 
+    <!--back button-->
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@android:color/darker_gray"
+        android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
+        android:layout_marginBottom="10dp"
+        android:onClick="goBack"/>
+    <!--middle stuff-->
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
-        <!--back button-->
-        <ImageButton
-            android:layout_width="73dp"
-            android:layout_height="wrap_content"
-            android:background="@android:color/darker_gray"
-            android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
-            android:layout_marginBottom="10dp"
-            android:onClick="goBack"/>
-        <!--middle stuff-->
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="5"
+        android:baselineAligned="false">
+        <!--left side-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="5">
-            <!--left side-->
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <!--one painting and text-->
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/sample_2"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:id="@+id/OriginalImage"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_weight="1">
-                <!--one painting and text-->
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/sample_2"
-                        android:layout_weight="1"
-                        android:layout_margin="10dp"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_weight="3">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/originalTitle"
-                            android:text="The Dog"
-                            android:gravity="center_horizontal"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/originalArtist"
-                            android:text="Picasso"
-                            android:gravity="center_horizontal"/>
-                    </LinearLayout>
-
-            </LinearLayout>
-
-            <!--right side-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="1">
-                <!--one painting and text-->
-                <ImageView
+                android:layout_weight="3">
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/sample_4"
-                    android:id="@+id/MosaicImage"
-                    android:layout_weight="1"
-                    android:layout_margin="10dp"/>
+                    android:layout_height="wrap_content"
+                    android:id="@+id/originalTitle"
+                    android:text=""
+                    android:gravity="center_horizontal"/>
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_weight="3">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/mosaicAuthor"
-                        android:text="Mosaic by anon"
-                        android:gravity="center_horizontal"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/dateCreated"
-                        android:text="Created on: some date"
-                        android:gravity="center_horizontal"/>
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:id="@+id/originalArtist"
+                    android:text=""
+                    android:gravity="center_horizontal"/>
             </LinearLayout>
 
         </LinearLayout>
-         <!--bottom stuff-->
 
+        <!--right side-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <!--one painting and text-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/sample_4"
+                android:id="@+id/MosaicImage"
+                android:layout_weight="1"
+                android:layout_margin="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="3">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mosaicAuthor"
+                    android:text=""
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/dateCreated"
+                    android:text=""
+                    android:gravity="center_horizontal"/>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
-</RelativeLayout>
+    <!--bottom stuff-->
+</LinearLayout>

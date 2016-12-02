@@ -11,25 +11,50 @@ public class GlobalVariables {
 
         private GlobalVariables() {
             mosaics = new ArrayList<Mosaic>();
-            Integer[] initialDrawables = {
-                    R.drawable.sample_2, R.drawable.sample_3,
-                    R.drawable.sample_4, R.drawable.sample_5,
-                    R.drawable.sample_6, R.drawable.sample_7,
-                    R.drawable.sample_0, R.drawable.sample_1,
-                    R.drawable.sample_2, R.drawable.sample_3,
-                    R.drawable.sample_4, R.drawable.sample_5,
-                    R.drawable.sample_6, R.drawable.sample_7,
-                    R.drawable.sample_0, R.drawable.sample_1,
+            Integer[] initDrawables = {
+                    R.drawable.m5, R.drawable.m1,
+                    R.drawable.m3, R.drawable.m6,
+                    R.drawable.m2, R.drawable.m4,
+                    R.drawable.m5, R.drawable.m1,
+                    R.drawable.m3, R.drawable.m6,
+                    R.drawable.m2, R.drawable.m4
             };
 
-            String[] initialCreators = {
-                    "Heather", "Janna", "Isabella", "Anonymous",
+            String[] initCreators = {
                     "Heather", "Janna", "Isabella", "Anonymous",
                     "Heather", "Janna", "Isabella", "Anonymous",
                     "Heather", "Janna", "Isabella", "Anonymous"
             };
-            for (int i = 0; i < initialDrawables.length; i++){
-                mosaics.add(new Mosaic(initialDrawables[i], initialCreators[i], "a minute ago"));
+
+            Integer[] initOrigSrc = {
+                    R.drawable.voyage, R.drawable.nyt,
+                    R.drawable.sacramentoriver, R.drawable.voyage,
+                    R.drawable.nyt, R.drawable.sacramentoriver,
+                    R.drawable.voyage, R.drawable.nyt,
+                    R.drawable.sacramentoriver, R.drawable.voyage,
+                    R.drawable.nyt, R.drawable.sacramentoriver
+            };
+
+            String[] initOrigArtists = {
+                    "Jules Olitski", "Dashiell Manley",
+                    "Gregory Kondos", "Jules Olitski",
+                    "Dashiell Manley", "Gregory Kondos",
+                    "Jules Olitski", "Dashiell Manley",
+                    "Gregory Kondos", "Jules Olitski",
+                    "Dashiell Manley", "Gregory Kondos"
+            };
+
+            String[] initOrigTitles = {
+                    "Voyage", "The New York Times",
+                    "Sacremento River", "Voyage",
+                    "The New York Times", "Sacremento River",
+                    "Voyage", "The New York Times",
+                    "Sacremento River", "Voyage",
+                    "The New York Times", "Sacremento River"
+            };
+            for (int i = 0; i < initDrawables.length; i++){
+                mosaics.add(new Mosaic(initDrawables[i], initCreators[i], "a minute ago",
+                        initOrigSrc[i], initOrigArtists[i], initOrigTitles[i]));
             }
 
         }

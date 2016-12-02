@@ -4,38 +4,46 @@ package com.example.isabellacai.mosaic;
  * Created by Heather on 11/30/2016.
  */
 
-public class Mosaic {
+class Mosaic {
     private int source;
     private String creator;
     private String timestamp;
+    private int originalSource;
+    private String originalArtist;
+    private String title;
 
-    public Mosaic(int mosaicSource, String mosaicCreator, String createdTimestamp){
+    Mosaic(int mosaicSource, String mosaicCreator, String createdTimestamp,
+           int origSrc, String origArtist, String origTitle){
         source = mosaicSource;
         creator = mosaicCreator;
         timestamp = createdTimestamp;
+        originalSource = origSrc;
+        originalArtist = origArtist;
+        title = origTitle;
     }
 
-    public int getMosaicSource(){
+    int getMosaicSource(){
         return source;
     }
 
-    public void setMosaicSource(int newSource){
-        source = newSource;
+    int getOriginalSource(){
+        return originalSource;
     }
 
-    public String getCreator(){
+    String getCreator(){
         return creator;
     }
 
-    public void setCreator(String s){
-        creator = s;
+    String getOriginalArtist(){
+        return originalArtist;
     }
 
-    public String getTimestamp(){
+    String getTimestamp(){
         return timestamp;
     }
 
-    public void setTimestamp(String s){
-        timestamp = s;
+    String getTitle(){
+        return title;
     }
+
 }

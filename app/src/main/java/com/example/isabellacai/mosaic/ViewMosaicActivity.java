@@ -17,15 +17,22 @@ public class ViewMosaicActivity extends SimpleActivity {
         setContentView(R.layout.activity_view_mosaic);
         Intent intent = getIntent();
         int position = intent.getIntExtra("position", -1);
+        Mosaic chosenMosaic = GlobalVariables.getInstance().mosaics.get(position);
+        ImageView mosaicImg = findImageView(R.id.MosaicImage);
+        mosaicImg.setImageResource(chosenMosaic.getMosaicSource());
 
-        ImageView img = findImageView(R.id.MosaicImage);
-        img.setImageResource(GlobalVariables.getInstance().mosaics.get(position).getMosaicSource());
+        ImageView origImg = findImageView(R.id.OriginalImage);
+        origImg.setImageResource(chosenMosaic.getOriginalSource());
 
-        TextView author = findTextView(R.id.mosaicAuthor);
+        TextView creator = findTextView(R.id.mosaicAuthor);
         TextView date = findTextView(R.id.dateCreated);
+        TextView artist = findTextView(R.id.originalArtist);
+        TextView title = findTextView(R.id.originalTitle);
 
-        author.setText("Mosaic created by: " + GlobalVariables.getInstance().mosaics.get(position).getCreator());
-        date.setText(GlobalVariables.getInstance().mosaics.get(position).getTimestamp());
+        creator.setText("Mosaic created by " + chosenMosaic.getCreator());
+        date.setText(chosenMosaic.getTimestamp());
+        artist.setText(chosenMosaic.getOriginalArtist());
+        title.setText(chosenMosaic.getTitle());
 
 
     }

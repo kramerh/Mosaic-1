@@ -11,10 +11,10 @@ import android.widget.*;
 
 //change this so that it gets images from the arraylist
 
-public class ImageAdapter extends BaseAdapter {
+class ImageAdapter extends BaseAdapter {
     private Context mContext;
 
-    public ImageAdapter(Context c) {
+    ImageAdapter(Context c) {
         mContext = c;
     }
 
@@ -46,16 +46,4 @@ public class ImageAdapter extends BaseAdapter {
         imageView.setImageResource(GlobalVariables.getInstance().mosaics.get(position).getMosaicSource());
         return imageView;
     }
-
-    // references to our images
-//    public Integer[] mThumbIds = {
-//            R.drawable.sample_2, R.drawable.sample_3,
-//            R.drawable.sample_4, R.drawable.sample_5,
-//            R.drawable.sample_6, R.drawable.sample_7,
-//            R.drawable.sample_0, R.drawable.sample_1,
-//            R.drawable.sample_2, R.drawable.sample_3,
-//            R.drawable.sample_4, R.drawable.sample_5,
-//            R.drawable.sample_6, R.drawable.sample_7,
-//            R.drawable.sample_0, R.drawable.sample_1
-//    };
 }
