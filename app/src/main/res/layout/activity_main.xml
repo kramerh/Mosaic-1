@@ -26,9 +26,8 @@
         <GridView
             android:id="@+id/gridview"
             android:layout_width="match_parent"
-            android:layout_height="342dp"
-            android:columnWidth="180dp"
-            android:numColumns="auto_fit"
+            android:layout_height="340dp"
+            android:numColumns="4"
             android:verticalSpacing="10dp"
             android:horizontalSpacing="10dp"
             android:stretchMode="columnWidth"
