@@ -27,4 +27,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void goToDetail(View view) {
+        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+        startActivity(intent);
+    }
 }

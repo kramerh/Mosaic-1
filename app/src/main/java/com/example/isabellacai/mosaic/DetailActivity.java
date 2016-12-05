@@ -14,7 +14,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void goToCreate(View view) {
-        Intent intent = new Intent(DetailActivity.this, ViewMosaicActivity.class);
+        Intent intent = new Intent(DetailActivity.this, CanvasActivity.class);
         startActivity(intent);
     }
 

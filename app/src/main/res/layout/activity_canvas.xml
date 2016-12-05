@@ -25,25 +25,28 @@
            android:id="@+id/textView" />
    </LinearLayout>
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="10"
-        android:id="@+id/canvas">
+        android:id="@+id/canvas"
+        android:background="@android:color/holo_green_light">
         <!--THE CANVAS HERE LHEELEFJSELFJWEIOJIO-->
-    </RelativeLayout>
+    </FrameLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="98dp"
         android:orientation="horizontal"
-        android:id="@+id/options">
+        android:id="@+id/options"
+        android:background="@android:color/white">
         <!--WHERE THE OPTIONS GO-->
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="116dp"
-            app:srcCompat="@drawable/sample_7"
+            android:src="@drawable/sample_7"
             android:id="@+id/image" />
     </LinearLayout>
 
