@@ -1,29 +1,30 @@
 package com.example.isabellacai.mosaic;
 
-import android.graphics.Color;
+import android.content.Context;
+import android.content.ContextWrapper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipDescription;
-import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.support.v7.widget.AppCompatCheckBox;
-import android.util.Xml;
 import android.view.DragEvent;
 import android.view.View;
 import android.view.View.DragShadowBuilder;
 import android.view.View.OnDragListener;
 import android.view.View.OnLongClickListener;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import stanford.androidlib.SimpleActivity;
 
@@ -35,6 +36,7 @@ public class CanvasActivity extends SimpleActivity {
 
     private ImageView myImage;
     private static final String IMAGEVIEW_TAG = "Piece";
+    private File directory;
 
 /** Called when the activity is first created. */
 
@@ -43,15 +45,54 @@ public class CanvasActivity extends SimpleActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_canvas);
         myImage = (ImageView)findViewById(R.id.image);
+
         // Sets the tag
         myImage.setTag(IMAGEVIEW_TAG);
 
         // set the listener to the dragging data
         myImage.setOnLongClickListener(new MyClickListener());
 
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+
         findViewById(R.id.options).setOnDragListener(new MyDragListener());
         findViewById(R.id.canvas).setOnDragListener(new MyDragListener());
 
+    }
+
+    private void saveImage(Bitmap bm, String filename){
+        filename = filename + ".jpg";
+        // Create imageDir
+        File path=new File(directory, filename);
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(path);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bm.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            toast("success");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        GlobalVariables.getInstance().mosaics.add(new Mosaic(filename, "new creator", "just now", R.drawable.voyage, "Jules", "Voyage"));
+        GlobalVariables.getInstance().mosaicNumber++;
+    }
+
+    public void saveBitmap(View view) {
+        RelativeLayout layout = (RelativeLayout)findViewById(R.id.canvas);
+        layout.setDrawingCacheEnabled(true);
+        Bitmap bm = Bitmap.createBitmap(layout.getDrawingCache());
+        layout.setDrawingCacheEnabled(false);
+        //get mosaic number
+        //add new mosaic to arraylist?
+        String filename = "m" + GlobalVariables.getInstance().mosaicNumber;
+        saveImage(bm, filename);
+        toast("end");
     }
 
     private final class MyClickListener implements OnLongClickListener {
@@ -126,7 +167,7 @@ public class CanvasActivity extends SimpleActivity {
                     } else {
                         View view = (View) event.getLocalState();
                         view.setVisibility(View.VISIBLE);
-                        toast("dropped - You can't drop this here", 1);
+                        toast("You can't drop this here", 1);
                         break;
                     }
                     break;
@@ -135,8 +176,9 @@ public class CanvasActivity extends SimpleActivity {
                 case DragEvent.ACTION_DRAG_ENDED:
                         View view = (View) event.getLocalState();
                         view.setVisibility(View.VISIBLE);
-                        toast("ended - getResult is " + event.getResult(), 1);
-
+                        if (event.getResult() == false){
+                            toast("You can't drop this here");
+                        }
                 default:
                     break;
             }

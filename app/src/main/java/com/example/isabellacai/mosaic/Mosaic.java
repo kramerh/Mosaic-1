@@ -5,16 +5,16 @@ package com.example.isabellacai.mosaic;
  */
 
 class Mosaic {
-    private int source;
+    private String sourceFileName;
     private String creator;
     private String timestamp;
     private int originalSource;
     private String originalArtist;
     private String title;
 
-    Mosaic(int mosaicSource, String mosaicCreator, String createdTimestamp,
+    Mosaic(String mosaicSource, String mosaicCreator, String createdTimestamp,
            int origSrc, String origArtist, String origTitle){
-        source = mosaicSource;
+        sourceFileName = mosaicSource;
         creator = mosaicCreator;
         timestamp = createdTimestamp;
         originalSource = origSrc;
@@ -22,8 +22,8 @@ class Mosaic {
         title = origTitle;
     }
 
-    int getMosaicSource(){
-        return source;
+    String getMosaicSource(){
+        return sourceFileName;
     }
 
     int getOriginalSource(){
