@@ -10,6 +10,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorPrimary"
     tools:context="com.example.isabellacai.mosaic.CanvasActivity">
 
    <LinearLayout
@@ -25,14 +26,16 @@
            android:id="@+id/textView" />
    </LinearLayout>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="10"
+        android:layout_height="527dp"
         android:id="@+id/canvas"
-        android:background="@android:color/holo_green_light">
+        android:background="#feeeee"
+        android:layout_margin="0px"
+        android:padding="0px">
         <!--THE CANVAS HERE LHEELEFJSELFJWEIOJIO-->
-    </FrameLayout>
+
+    </RelativeLayout>
 
 
     <LinearLayout
@@ -44,10 +47,11 @@
         <!--WHERE THE OPTIONS GO-->
 
         <ImageView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="116dp"
             android:src="@drawable/sample_7"
-            android:id="@+id/image" />
+            android:id="@+id/image"
+            android:scaleType="centerCrop"/>
     </LinearLayout>
 
 </LinearLayout>
