@@ -2,8 +2,10 @@ package com.example.isabellacai.mosaic;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +13,8 @@ import android.content.ClipData;
 import android.content.ClipDescription;
 import android.graphics.drawable.Drawable;
 import android.view.DragEvent;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.View.DragShadowBuilder;
 import android.view.View.OnDragListener;
@@ -34,29 +38,84 @@ import static com.example.isabellacai.mosaic.R.id.textView;
 
 public class CanvasActivity extends SimpleActivity {
 
-    private ImageView myImage;
+    private ImageView myImage1;
+    private ImageView myImage2;
+    private ImageView myImage3;
     private static final String IMAGEVIEW_TAG = "Piece";
     private File directory;
+    private ScaleGestureDetector mSGD;
+    private Matrix mMatrix = new Matrix();
+    private float mScale = 1f;
 
+    private ImageView currentImg;
+    private boolean inPinch = false;
 /** Called when the activity is first created. */
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_canvas);
-        myImage = (ImageView)findViewById(R.id.image);
-
+        myImage1 = (ImageView)findViewById(R.id.image1);
+        myImage2 = (ImageView)findViewById(R.id.image2);
+        myImage3 = (ImageView)findViewById(R.id.image3);
         // Sets the tag
-        myImage.setTag(IMAGEVIEW_TAG);
+        myImage1.setTag(IMAGEVIEW_TAG);
+        myImage2.setTag(IMAGEVIEW_TAG);
+        myImage3.setTag(IMAGEVIEW_TAG);
 
         // set the listener to the dragging data
-        myImage.setOnLongClickListener(new MyClickListener());
+        myImage1.setOnLongClickListener(new MyClickListener());
+        myImage2.setOnLongClickListener(new MyClickListener());
+        myImage3.setOnLongClickListener(new MyClickListener());
 
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
         directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-
+        mSGD = new ScaleGestureDetector(this, new ScaleListener());
         findViewById(R.id.options).setOnDragListener(new MyDragListener());
         findViewById(R.id.canvas).setOnDragListener(new MyDragListener());
+        myImage1.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                currentImg = (ImageView) v;
+                switch (event.getAction() & MotionEvent.ACTION_MASK){
+                    case MotionEvent.ACTION_UP:
+                        inPinch = false;
+                        int width = (int) (myImage1.getWidth()*mScale);
+                        int height = (int) (myImage1.getHeight()*mScale);
+                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, height);
+                        myImage1.setLayoutParams(params);
+                        log("after scaling: " + myImage1.getWidth() + ", " + myImage1.getHeight());
+                    default:
+                        break;
+                }
+                if(event.getPointerCount() > 1) {
+                    inPinch = true;
+                    mSGD.onTouchEvent(event);
+                    return true;
+                }
+
+
+//                if (event.getAction() == MotionEvent.ACTION_UP){
+//                    log("up");
+//                    inPinch = false;
+//                }
+                return false;
+            }
+        });
+
+    }
+
+
+    private class ScaleListener extends ScaleGestureDetector.
+            SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            mScale *= detector.getScaleFactor();
+            mScale = Math.max(0.1f, Math.min(mScale, 5.0f));
+            mMatrix.setScale(mScale, mScale);
+            myImage1.setImageMatrix(mMatrix);
+            return true;
+        }
 
     }
 
@@ -69,7 +128,7 @@ public class CanvasActivity extends SimpleActivity {
             fos = new FileOutputStream(path);
             // Use the compress method on the BitMap object to write image to the OutputStream
             bm.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            toast("success");
+            //toast("success");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -79,8 +138,9 @@ public class CanvasActivity extends SimpleActivity {
                 e.printStackTrace();
             }
         }
-        GlobalVariables.getInstance().mosaics.add(new Mosaic(filename, "new creator", "just now", R.drawable.voyage, "Jules", "Voyage"));
-        GlobalVariables.getInstance().mosaicNumber++;
+        //moved to saveActivity
+//        GlobalVariables.getInstance().mosaics.add(new Mosaic(filename, "new creator", "just now", R.drawable.voyage, "Jules", "Voyage"));
+//        GlobalVariables.getInstance().mosaicNumber++;
     }
 
     public void saveBitmap(View view) {
@@ -88,11 +148,11 @@ public class CanvasActivity extends SimpleActivity {
         layout.setDrawingCacheEnabled(true);
         Bitmap bm = Bitmap.createBitmap(layout.getDrawingCache());
         layout.setDrawingCacheEnabled(false);
-        //get mosaic number
-        //add new mosaic to arraylist?
         String filename = "m" + GlobalVariables.getInstance().mosaicNumber;
         saveImage(bm, filename);
-        toast("end");
+        Intent intent = new Intent(CanvasActivity.this, SaveActivity.class);
+        intent.putExtra("filename", filename);
+        startActivity(intent);
     }
 
     private final class MyClickListener implements OnLongClickListener {
@@ -100,22 +160,23 @@ public class CanvasActivity extends SimpleActivity {
                 // called when the item is long-clicked
         @Override
         public boolean onLongClick(View view) {
-            // create it from the object's tag
-            ClipData.Item item = new ClipData.Item((CharSequence)view.getTag());
-
-            String[] mimeTypes = { ClipDescription.MIMETYPE_TEXT_PLAIN };
-            ClipData data = new ClipData(view.getTag().toString(), mimeTypes, item);
-            DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
-            view.startDrag(data,shadowBuilder, view, 0);
-            view.setVisibility(View.INVISIBLE);
-            return true;
+            if (!inPinch) {
+                // create it from the object's tag
+                ClipData.Item item = new ClipData.Item((CharSequence) view.getTag());
+                String[] mimeTypes = {ClipDescription.MIMETYPE_TEXT_PLAIN};
+                ClipData data = new ClipData(view.getTag().toString(), mimeTypes, item);
+                DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
+                view.startDrag(data, shadowBuilder, view, 0);
+                view.setVisibility(View.INVISIBLE);
+                return true;
+            }
+            return false;
         }
     }
 
 
 
     class MyDragListener implements OnDragListener {
-        private boolean withinCanvas = true;
 
         @Override
         public boolean onDrag(View v, DragEvent event) {
@@ -141,7 +202,6 @@ public class CanvasActivity extends SimpleActivity {
                     if(v == canvas) {
                         float canvasX = getResources().getDimension(R.dimen.activity_horizontal_margin);
                         float canvasY = getResources().getDimension(R.dimen.activity_horizontal_margin);
-
                         ImageView img = (ImageView) event.getLocalState();
                         ViewGroup viewgroup = (ViewGroup) img.getParent();
                         viewgroup.removeView(img);

@@ -33,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         adapter.notifyDataSetChanged();
+        Intent in = getIntent();
+        boolean saved = false;
+        if (in != null)
+            saved = in.getBooleanExtra("saved", false);
+        if(saved) Toast.makeText(MainActivity.this, "Mosaic saved successfully!", Toast.LENGTH_LONG).show();
     }
 
     public void goToDetail(View view) {

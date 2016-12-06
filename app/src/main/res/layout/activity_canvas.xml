@@ -45,7 +45,15 @@
         android:layout_margin="0px"
         android:padding="0px">
         <!--THE CANVAS HERE LHEELEFJSELFJWEIOJIO-->
-
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sample_7"
+            android:id="@+id/image1"
+            android:scaleType="matrix"
+            android:maxHeight="100px"
+            android:maxWidth="300px"
+            />
     </RelativeLayout>
 
 
@@ -57,11 +65,18 @@
         android:background="@android:color/white">
         <!--WHERE THE OPTIONS GO-->
 
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="116dp"
             android:src="@drawable/sample_7"
-            android:id="@+id/image"
+            android:id="@+id/image2"
+            android:scaleType="centerCrop"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="116dp"
+            android:src="@drawable/sample_7"
+            android:id="@+id/image3"
             android:scaleType="centerCrop"/>
     </LinearLayout>
 
