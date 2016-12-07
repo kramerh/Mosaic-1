@@ -16,10 +16,12 @@
     <ImageButton
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:background="@android:color/darker_gray"
+        android:background="#000000"
         android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
+        android:scaleType="fitCenter"
         android:layout_marginBottom="10dp"
-        android:onClick="goBack"/>
+        android:onClick="goBack"
+        android:layout_weight="0.28" />
     <!--middle stuff-->
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,42 +30,42 @@
         android:layout_weight="5"
         android:baselineAligned="false">
         <!--left side-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1">
-            <!--one painting and text-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_weight="1">-->
+            <!--&lt;!&ndash;one painting and text&ndash;&gt;-->
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/sample_2"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:id="@+id/OriginalImage"/>
+            <!--<ImageView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:src="@drawable/sample_2"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_margin="10dp"-->
+                <!--android:id="@+id/OriginalImage"/>-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="3">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/originalTitle"
-                    android:text=""
-                    android:gravity="center_horizontal"/>
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_weight="3">-->
+                <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/originalTitle"-->
+                    <!--android:text=""-->
+                    <!--android:gravity="center_horizontal"/>-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/originalArtist"
-                    android:text=""
-                    android:gravity="center_horizontal"/>
-            </LinearLayout>
+                <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/originalArtist"-->
+                    <!--android:text=""-->
+                    <!--android:gravity="center_horizontal"/>-->
+            <!--</LinearLayout>-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
         <!--right side-->
         <LinearLayout
@@ -89,14 +91,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/mosaicAuthor"
-                    android:text=""
+                    android:text="name"
+                    android:textSize="40sp"
+                    android:textColor="#ffffff"
                     android:gravity="center_horizontal"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/dateCreated"
-                    android:text=""
+                    android:textSize="40sp"
+                    android:text="date"
+                    android:textColor="#ffffff"
                     android:gravity="center_horizontal"/>
             </LinearLayout>
         </LinearLayout>

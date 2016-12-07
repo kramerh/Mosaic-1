@@ -1,12 +1,15 @@
 package com.example.isabellacai.mosaic;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        TextView txt = (TextView) findViewById(R.id.browseText);
+        Button btn = (Button) findViewById(R.id.createButton);
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/sourcesanspro.ttf");
+        txt.setTypeface(font);
+        btn.setTypeface(font);
     }
 
     @Override

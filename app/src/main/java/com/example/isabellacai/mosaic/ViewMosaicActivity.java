@@ -38,18 +38,18 @@ public class ViewMosaicActivity extends SimpleActivity {
         }
         //mosaicImg.setImageResource(chosenMosaic.getMosaicSource());
 
-        ImageView origImg = findImageView(R.id.OriginalImage);
-        origImg.setImageResource(chosenMosaic.getOriginalSource());
+//        ImageView origImg = findImageView(R.id.OriginalImage);
+//        origImg.setImageResource(chosenMosaic.getOriginalSource());
 
         TextView creator = findTextView(R.id.mosaicAuthor);
         TextView date = findTextView(R.id.dateCreated);
-        TextView artist = findTextView(R.id.originalArtist);
-        TextView title = findTextView(R.id.originalTitle);
+//        TextView artist = findTextView(R.id.originalArtist);
+//        TextView title = findTextView(R.id.originalTitle);
 
         creator.setText("Mosaic created by " + chosenMosaic.getCreator());
         date.setText(chosenMosaic.getTimestamp());
-        artist.setText(chosenMosaic.getOriginalArtist());
-        title.setText(chosenMosaic.getTitle());
+//        artist.setText(chosenMosaic.getOriginalArtist());
+//        title.setText(chosenMosaic.getTitle());
 
 
     }

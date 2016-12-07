@@ -48,10 +48,10 @@ class ImageAdapter extends BaseAdapter {
             imageView = new ImageView(mContext);
             imageView.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.WRAP_CONTENT, GridView.LayoutParams.WRAP_CONTENT));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
+            imageView.setPadding(10, 10, 10, 10);
             imageView.setAdjustViewBounds(true);
-            imageView.setMaxHeight(300);
-            imageView.setMaxWidth(300);
+            imageView.setMaxHeight(400);
+            imageView.setMaxWidth(400);
         } else {
             imageView = (ImageView) convertView;
         }

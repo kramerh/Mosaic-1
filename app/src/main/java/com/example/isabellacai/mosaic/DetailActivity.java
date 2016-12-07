@@ -18,4 +18,8 @@ public class DetailActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void goBack(View view) {
+        Intent intent = new Intent(DetailActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
 }

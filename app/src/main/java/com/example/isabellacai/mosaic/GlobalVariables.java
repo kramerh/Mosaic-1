@@ -72,8 +72,7 @@ public class GlobalVariables {
                     "nyt", "sacramentoriver"
             };
             for (int i = 0; i < initDrawables.length; i++){
-                mosaics.add(new Mosaic(""+i, initCreators[i], "a minute ago",
-                        initOrigSrc[i], initOrigArtists[i], initOrigTitles[i]));
+                mosaics.add(new Mosaic(""+i, initCreators[i], "a minute ago"));
             }
             mosaicNumber = mosaics.size(); //number of the next one to add
         }

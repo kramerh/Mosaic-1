@@ -43,7 +43,7 @@ public class SaveActivity extends AppCompatActivity {
         if (typedInName.equals("")) typedInName = "Anonymous";
         DateFormat df = new SimpleDateFormat("MMM d, yyyy");
         String date = df.format(Calendar.getInstance().getTime());
-        GlobalVariables.getInstance().mosaics.add(new Mosaic(filename, typedInName, date, R.drawable.voyage, "Jules Olitski", "Voyage"));
+        GlobalVariables.getInstance().mosaics.add(new Mosaic(filename, typedInName, date));
         GlobalVariables.getInstance().mosaicNumber++;
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("saved", true);

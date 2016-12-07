@@ -13,58 +13,68 @@
     android:background="@android:color/black"
     tools:context="com.example.isabellacai.mosaic.CanvasActivity">
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_weight="1">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-       <!--<Button-->
-           <!--android:text="<&#45;&#45;"-->
-           <!--android:layout_width="wrap_content"-->
-           <!--android:layout_height="wrap_content"-->
-           <!--android:id="@+id/canvasBackButton"-->
-           <!--android:layout_weight="0.33"-->
-           <!--android:textSize="25sp"-->
-           <!--android:onClick="saveBitmap"-->
-           <!--android:textColor="@android:color/white"-->
-           <!--android:background="@android:color/black"/>-->
+        <!--<Button-->
+            <!--android:text="<&#45;&#45;"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/canvasBackButton"-->
+            <!--android:layout_weight="0.33"-->
+            <!--android:textSize="25sp"-->
+            <!--android:onClick="saveBitmap"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:background="@android:color/black"/>-->
+         <ImageButton
+             android:layout_width="100dp"
+             android:layout_height="match_parent"
+             android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
+             android:background="#000000"
+             android:id="@+id/canvasBackButton"
+             android:layout_alignParentStart="true"
+             android:layout_alignParentTop="true"
+             android:onClick="goToDetail"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Drag and drop to create mosaic"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="28sp"
+            android:id="@+id/canvasText"
+            android:layout_centerHorizontal="true"/>
+        <Button
+            android:text="Done"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/canvasDoneButton"
+            android:textSize="25sp"
+            android:onClick="saveBitmap"
+            android:textColor="@android:color/white"
+            android:background="@android:color/black"
+            android:layout_alignParentEnd="true"/>
 
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Drag and drop to create mosaic"
-           android:gravity="center_horizontal"
-           android:textColor="@android:color/white"
-           android:textSize="28dp"
-           android:id="@+id/textView"
-           android:layout_weight="1"/>
+        <ImageButton
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/black"
+            android:src="@drawable/voyage"
+            android:scaleType="centerCrop"
+            android:layout_margin="10dp"
+            android:onClick="goHome"
+            android:id="@+id/canvasHomeButton"
+            android:layout_toStartOf="@id/canvasDoneButton"
+            />
 
-       <ImageButton
-           android:layout_width="100dp"
-           android:layout_height="50dp"
-           android:background="@android:color/black"
-           android:src="@drawable/voyage"
-           android:scaleType="centerCrop"
-           android:layout_marginBottom="10dp"
-           android:onClick="goBack"
-           android:id="@+id/imageButton2" />
 
-       <Button
-           android:text="Done"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:id="@+id/button"
-           android:layout_weight="0.33"
-           android:textSize="25sp"
-           android:onClick="saveBitmap"
-           android:textColor="@android:color/white"
-           android:background="@android:color/black"/>
-
-   </LinearLayout>
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="527dp"
+        android:layout_height="540dp"
         android:id="@+id/canvas"
         android:background="#ffffff"
         android:layout_margin="0px"

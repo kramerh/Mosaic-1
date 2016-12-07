@@ -34,7 +34,7 @@ import stanford.androidlib.SimpleActivity;
 
 import static android.R.attr.id;
 import static com.example.isabellacai.mosaic.R.id.activity_canvas;
-import static com.example.isabellacai.mosaic.R.id.textView;
+//import static com.example.isabellacai.mosaic.R.id.textView;
 
 public class CanvasActivity extends SimpleActivity {
 
@@ -103,6 +103,17 @@ public class CanvasActivity extends SimpleActivity {
             }
         });
 
+    }
+
+    public void goHome(View view) {
+        //put something here for the alert
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToDetail(View view) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        startActivity(intent);
     }
 
 
