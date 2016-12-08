@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_canvas_copy"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@android:color/black"
+    tools:context="com.example.isabellacai.mosaic.CanvasActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Drag and drop to create mosaic"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/title_text_size"
+            android:id="@+id/canvasText"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="10dp"/>
+        <Button
+            android:text="Done"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/canvasDoneButton"
+            android:textSize="30sp"
+            android:onClick="goToSave"
+            android:textColor="@android:color/white"
+            android:background="@android:color/black"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="20dp"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/black"
+            android:src="@drawable/ic_menu_home"
+            android:scaleType="centerCrop"
+            android:layout_margin="10dp"
+            android:onClick="goHome"
+            android:id="@+id/canvasHomeButton"
+            android:layout_toStartOf="@id/canvasDoneButton"
+            />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#000000"
+            android:id="@+id/canvasBackButton"
+            android:src="@drawable/ic_ab_back_holo_dark"
+            android:scaleType="fitCenter"
+            android:layout_marginBottom="10dp"
+            android:onClick="goToDetail"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/canvas"
+        android:background="#fff1ef"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="8dp"
+        android:padding="0px"
+        android:layout_weight="8">
+        <!--THE CANVAS HERE LHEELEFJSELFJWEIOJIO-->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/piece2"
+            android:id="@+id/image1"
+            android:scaleType="matrix"
+            android:maxHeight="100dp"
+            android:maxWidth="300dp"
+            android:visibility="invisible"
+            />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:id="@+id/options"
+        android:background="#aaaaaa"
+        android:layout_weight="2">
+        <!--WHERE THE OPTIONS GO-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="5dp">
+            <!--piece-->
+            <ImageView
+                android:layout_width="400dp"
+                android:layout_height="200dp"
+                android:src="@drawable/piece1"
+                android:layout_centerInParent="true"
+                android:id="@+id/img1"
+                android:scaleType="centerCrop"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="5dp">
+            <!--piece-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="116dp"
+                android:src="@drawable/piece2"
+                android:layout_centerInParent="true"
+                android:id="@+id/img2"
+                android:scaleType="centerCrop"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="5dp">
+            <!--piece-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="116dp"
+                android:src="@drawable/piece3"
+                android:layout_centerInParent="true"
+                android:id="@+id/img3"
+                android:scaleType="centerCrop"/>
+        </RelativeLayout>
+        <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="5dp">
+            <!--piece-->
+            <ImageView
+                android:layout_width="400dp"
+                android:layout_height="200dp"
+                android:src="@drawable/piece4"
+                android:layout_centerInParent="true"
+                android:id="@+id/img4"
+                android:scaleType="centerCrop"/>
+         </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="5dp">
+            <!--piece-->
+            <ImageView
+                android:layout_width="400dp"
+                android:layout_height="200dp"
+                android:src="@drawable/piece5"
+                android:layout_centerInParent="true"
+                android:id="@+id/img5"
+                android:scaleType="centerCrop"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="5dp">
+            <!--piece-->
+            <ImageView
+                android:layout_width="400dp"
+                android:layout_height="200dp"
+                android:src="@drawable/piece6"
+                android:layout_centerInParent="true"
+                android:id="@+id/img6"
+                android:scaleType="centerCrop"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.07"
+            android:background="#000000"
+            android:padding="0dp">
+            <!--undo button-->
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_menu_revert"
+                android:background="#5b5b5b"
+
+                />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
