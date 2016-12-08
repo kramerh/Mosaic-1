@@ -38,6 +38,7 @@ public class CanvasActivity extends SimpleActivity {
     private ImageView piece4;
     private ImageView piece5;
     private ImageView piece6;
+    private ImageView piece7;
     private ImageView myImage1;
     private static final String IMAGEVIEW_TAG = "Piece";
     private File directory;
@@ -65,6 +66,7 @@ public class CanvasActivity extends SimpleActivity {
         piece4 = (ImageView)findViewById(R.id.img4);
         piece5 = (ImageView)findViewById(R.id.img5);
         piece6 = (ImageView)findViewById(R.id.img6);
+        piece7 = (ImageView)findViewById(R.id.img7);
 
         // Sets the tag
         piece1.setTag(IMAGEVIEW_TAG);
@@ -73,6 +75,7 @@ public class CanvasActivity extends SimpleActivity {
         piece4.setTag(IMAGEVIEW_TAG);
         piece5.setTag(IMAGEVIEW_TAG);
         piece6.setTag(IMAGEVIEW_TAG);
+        piece7.setTag(IMAGEVIEW_TAG);
 
         // set the listener to the dragging data
         piece1.setOnLongClickListener(new MyClickListener());
@@ -81,11 +84,19 @@ public class CanvasActivity extends SimpleActivity {
         piece4.setOnLongClickListener(new MyClickListener());
         piece5.setOnLongClickListener(new MyClickListener());
         piece6.setOnLongClickListener(new MyClickListener());
+        piece7.setOnLongClickListener(new MyClickListener());
 
 
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
         directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
         findViewById(R.id.options).setOnDragListener(new MyDragListener());
+        findViewById(R.id.box1).setOnDragListener(new MyDragListener());
+        findViewById(R.id.box2).setOnDragListener(new MyDragListener());
+        findViewById(R.id.box3).setOnDragListener(new MyDragListener());
+        findViewById(R.id.box4).setOnDragListener(new MyDragListener());
+        findViewById(R.id.box5).setOnDragListener(new MyDragListener());
+        findViewById(R.id.box6).setOnDragListener(new MyDragListener());
+        findViewById(R.id.box7).setOnDragListener(new MyDragListener());
         findViewById(R.id.canvas).setOnDragListener(new MyDragListener());
 
     }
@@ -209,22 +220,31 @@ public class CanvasActivity extends SimpleActivity {
                 //drag shadow has been released,the drag point is within the bounding box of the View
                 case DragEvent.ACTION_DROP:
                     View canvas = findViewById(R.id.canvas);
-                    if(v == canvas) {
+                    View options = findViewById(R.id.options);
+                    View box1 = findViewById(R.id.box1);
+                    View box2 = findViewById(R.id.box2);
+                    View box3 = findViewById(R.id.box3);
+                    View box4 = findViewById(R.id.box4);
+                    View box5 = findViewById(R.id.box5);
+                    View box6 = findViewById(R.id.box6);
+                    View box7 = findViewById(R.id.box7);
+
+                    if (v == canvas) {
                         float canvasX = getResources().getDimension(R.dimen.activity_horizontal_margin);
                         float canvasY = getResources().getDimension(R.dimen.activity_horizontal_margin);
                         ImageView img = (ImageView) event.getLocalState();
                         //TODO: create copies of imgview to put multiple pieces on
-                        ViewGroup viewgroup = (ViewGroup) img.getParent();
+                        RelativeLayout viewgroup = (RelativeLayout) img.getParent();
                         viewgroup.removeView(img);
                         RelativeLayout containView = (RelativeLayout) v;
                         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                              img.getWidth(), img.getHeight());
-                        containView.addView(img,params);
-                        float xOrigin = event.getX() - (img.getWidth()/2);
-                        float yOrigin = event.getY() - (img.getHeight()/2);
+                                img.getWidth(), img.getHeight());
+                        containView.addView(img, params);
+                        float xOrigin = event.getX() - (img.getWidth() / 2);
+                        float yOrigin = event.getY() - (img.getHeight() / 2);
                         if (xOrigin < 0)
                             img.setX(0);
-                        else if (xOrigin + img.getWidth()> canvas.getWidth())
+                        else if (xOrigin + img.getWidth() > canvas.getWidth())
                             img.setX(canvas.getWidth() - img.getWidth());
                         else
                             img.setX(xOrigin);
@@ -235,10 +255,40 @@ public class CanvasActivity extends SimpleActivity {
                         else
                             img.setY(yOrigin);
                         img.setVisibility(View.VISIBLE);
-                    } else {
+                    } else if((v == box1 || v == box2 || v == box3 || v == box4 || v == box5 || v == box6 || v == box7) && v != options){
+                        ImageView img = (ImageView) event.getLocalState();
+                        //TODO: create copies of imgview to put multiple pieces on
+                        RelativeLayout viewgroup = (RelativeLayout) img.getParent();
+                        viewgroup.removeView(img);
+                        RelativeLayout containView = (RelativeLayout) v;
+                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                                img.getWidth(), img.getHeight());
+                        containView.addView(img, params);
+                        //containView.setLayoutParams(params);
+                        img.setVisibility(View.VISIBLE);
+                        containView.bringChildToFront(img);
+                        params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+                        img.setLayoutParams(params);
+                        toast("here (" + img.getX() +", " + img.getY()+")");
+//                        float xOrigin = event.getX() - (img.getWidth() / 2);
+//                        float yOrigin = event.getY() - (img.getHeight() / 2);
+//                        if (xOrigin < 0)
+//                            img.setX(0);
+//                        else if (xOrigin + img.getWidth() > canvas.getWidth())
+//                            img.setX(canvas.getWidth() - img.getWidth());
+//                        else
+//                            img.setX(xOrigin);
+//                        if (yOrigin < 0)
+//                            img.setY(0);
+//                        else if (yOrigin + img.getHeight() > canvas.getHeight())
+//                            img.setY(canvas.getHeight() - img.getHeight());
+//                        else
+//                            img.setY(yOrigin);
+
+                    }else {
                         View view = (View) event.getLocalState();
                         view.setVisibility(View.VISIBLE);
-                        toast("You can't drop this here", 1);
+                        toast("You can't drop this here yo", 1);
                         break;
                     }
                     break;
