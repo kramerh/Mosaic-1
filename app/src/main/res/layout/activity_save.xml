@@ -12,46 +12,104 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#000000"
     tools:context="com.example.isabellacai.mosaic.SaveActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#000000"
+            android:id="@+id/detailBack"
+            android:src="@drawable/ic_ab_back_holo_dark"
+            android:scaleType="fitCenter"
+            android:layout_marginBottom="10dp"
+            android:onClick="goBackToCanvas"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Save to Gallery"
+            android:textColor="#ffffff"
+            android:textSize="40sp"
+            android:id="@+id/saveTitle" />
+    </RelativeLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Save Mosaic?"
-        android:textSize="40sp"
-        android:id="@+id/textView3" />
 
-    <ImageView
-        android:layout_width="400dp"
-        android:layout_height="200dp"
-        app:srcCompat="@mipmap/ic_launcher"
-        android:id="@+id/toSave"
-        android:layout_gravity="center_horizontal" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal">
-        <EditText
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:weightSum="1">
+            <!--left-->
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="40"
+                android:id="@+id/name"
+                android:hint="Your Name (optional)"
+                android:textColorHint="#bababa"
+                android:textColor="#ffffff"
+                android:textSize="20sp"/>
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="40"
+                android:id="@+id/comments"
+                android:textColor="#ffffff"
+                android:hint="Comments (optional)"
+                android:textColorHint="#bababa"
+                android:textSize="20sp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:id="@+id/buttons"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:text="Save"
+                    android:textSize="30sp"
+                    android:id="@+id/saveButton"
+                    android:onClick="saveAndReturn"
+                    android:layout_weight="1"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:text="Cancel"
+                    android:textSize="30sp"
+                    android:id="@+id/cancelButton"
+                    android:onClick="goHome"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="40"
-            android:id="@+id/name"
-            android:hint="Name (optional)"
-            android:textSize="20sp"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Save"
-            android:onClick="saveAndReturn"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cancel"/>
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <!--right-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="270dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/piece3"
+                android:id="@+id/toSave" />
+        </RelativeLayout>
+
     </LinearLayout>
-
-
-
-
 
 </LinearLayout>

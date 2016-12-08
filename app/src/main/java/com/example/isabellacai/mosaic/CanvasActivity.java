@@ -1,17 +1,16 @@
 package com.example.isabellacai.mosaic;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.content.ClipData;
 import android.content.ClipDescription;
-import android.graphics.drawable.Drawable;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -20,27 +19,27 @@ import android.view.View.DragShadowBuilder;
 import android.view.View.OnDragListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 import stanford.androidlib.SimpleActivity;
 
-import static android.R.attr.id;
-import static com.example.isabellacai.mosaic.R.id.activity_canvas;
-//import static com.example.isabellacai.mosaic.R.id.textView;
-
 public class CanvasActivity extends SimpleActivity {
 
+    private ImageView piece1;
+    private ImageView piece2;
+    private ImageView piece3;
+    private ImageView piece4;
+    private ImageView piece5;
+    private ImageView piece6;
     private ImageView myImage1;
-    private ImageView myImage2;
-    private ImageView myImage3;
     private static final String IMAGEVIEW_TAG = "Piece";
     private File directory;
     private ScaleGestureDetector mSGD;
@@ -54,19 +53,46 @@ public class CanvasActivity extends SimpleActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_canvas);
+        setContentView(R.layout.activity_canvas_copy);
+        TextView title = (TextView) findViewById(R.id.canvasText);
+        Button done = findButton(R.id.canvasDoneButton);
+        Typeface sourcebold = Typeface.createFromAsset(getAssets(), "fonts/sourcesansprobold.ttf");
+        Typeface source = Typeface.createFromAsset(getAssets(), "fonts/sourcesanspro.ttf");
+        title.setTypeface(sourcebold);
+        done.setTypeface(sourcebold);
+
+
+
+        piece1 = (ImageView)findViewById(R.id.img1);
+        piece2 = (ImageView)findViewById(R.id.img2);
+        piece3 = (ImageView)findViewById(R.id.img3);
+        piece4 = (ImageView)findViewById(R.id.img4);
+        piece5 = (ImageView)findViewById(R.id.img5);
+        piece6 = (ImageView)findViewById(R.id.img6);
+
         myImage1 = (ImageView)findViewById(R.id.image1);
-        myImage2 = (ImageView)findViewById(R.id.image2);
-        myImage3 = (ImageView)findViewById(R.id.image3);
-        // Sets the tag
         myImage1.setTag(IMAGEVIEW_TAG);
-        myImage2.setTag(IMAGEVIEW_TAG);
-        myImage3.setTag(IMAGEVIEW_TAG);
+        myImage1.setOnLongClickListener(new MyClickListener());
+        ViewGroup viewgroup = (ViewGroup) myImage1.getParent();
+        viewgroup.removeView(myImage1);
+
+
+        // Sets the tag
+        piece1.setTag(IMAGEVIEW_TAG);
+        piece2.setTag(IMAGEVIEW_TAG);
+        piece3.setTag(IMAGEVIEW_TAG);
+        piece4.setTag(IMAGEVIEW_TAG);
+        piece5.setTag(IMAGEVIEW_TAG);
+        piece6.setTag(IMAGEVIEW_TAG);
 
         // set the listener to the dragging data
-        myImage1.setOnLongClickListener(new MyClickListener());
-        myImage2.setOnLongClickListener(new MyClickListener());
-        myImage3.setOnLongClickListener(new MyClickListener());
+        piece1.setOnLongClickListener(new MyClickListener());
+        piece2.setOnLongClickListener(new MyClickListener());
+        piece3.setOnLongClickListener(new MyClickListener());
+        piece4.setOnLongClickListener(new MyClickListener());
+        piece5.setOnLongClickListener(new MyClickListener());
+        piece6.setOnLongClickListener(new MyClickListener());
+
 
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
         directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
@@ -93,12 +119,6 @@ public class CanvasActivity extends SimpleActivity {
                     mSGD.onTouchEvent(event);
                     return true;
                 }
-
-
-//                if (event.getAction() == MotionEvent.ACTION_UP){
-//                    log("up");
-//                    inPinch = false;
-//                }
                 return false;
             }
         });
@@ -106,14 +126,47 @@ public class CanvasActivity extends SimpleActivity {
     }
 
     public void goHome(View view) {
-        //put something here for the alert
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Are you sure you want to leave without saving?");
+                alertDialogBuilder.setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                Intent intent = new Intent(CanvasActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+
+        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                return;
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     public void goToDetail(View view) {
-        Intent intent = new Intent(this, DetailActivity.class);
-        startActivity(intent);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Are you sure you want to leave without saving?");
+        alertDialogBuilder.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        Intent intent = new Intent(CanvasActivity.this, DetailActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                return;
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
 
@@ -131,14 +184,14 @@ public class CanvasActivity extends SimpleActivity {
     }
 
     private void saveImage(Bitmap bm, String filename){
-        filename = filename + ".jpg";
+        //filename = filename + ".jpg";
         // Create imageDir
         File path=new File(directory, filename);
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(path);
             // Use the compress method on the BitMap object to write image to the OutputStream
-            bm.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            bm.compress(Bitmap.CompressFormat.PNG, 40, fos);
             //toast("success");
         } catch (Exception e) {
             e.printStackTrace();
@@ -149,20 +202,18 @@ public class CanvasActivity extends SimpleActivity {
                 e.printStackTrace();
             }
         }
-        //moved to saveActivity
-//        GlobalVariables.getInstance().mosaics.add(new Mosaic(filename, "new creator", "just now", R.drawable.voyage, "Jules", "Voyage"));
-//        GlobalVariables.getInstance().mosaicNumber++;
     }
 
-    public void saveBitmap(View view) {
+    public void goToSave(View view) {
         RelativeLayout layout = (RelativeLayout)findViewById(R.id.canvas);
         layout.setDrawingCacheEnabled(true);
         Bitmap bm = Bitmap.createBitmap(layout.getDrawingCache());
         layout.setDrawingCacheEnabled(false);
-        String filename = "m" + GlobalVariables.getInstance().mosaicNumber;
+        String filename = "m" + GlobalVariables.getInstance().mosaicNumber +".jpeg";
         saveImage(bm, filename);
         Intent intent = new Intent(CanvasActivity.this, SaveActivity.class);
         intent.putExtra("filename", filename);
+        bm.recycle();
         startActivity(intent);
     }
 
@@ -203,6 +254,7 @@ public class CanvasActivity extends SimpleActivity {
 //
 //                //the user has moved the drag shadow outside the bounding box of the View
 //                case DragEvent.ACTION_DRAG_EXITED:
+                //TODO: add some lil didactics up in here
 //                   // v.setBackground(getResources().getDrawable(R.drawable.sample_0));
 //                    //v.setBackgroundColor(Color.BLUE); this is if it exits anything
 //                    break;
@@ -214,6 +266,7 @@ public class CanvasActivity extends SimpleActivity {
                         float canvasX = getResources().getDimension(R.dimen.activity_horizontal_margin);
                         float canvasY = getResources().getDimension(R.dimen.activity_horizontal_margin);
                         ImageView img = (ImageView) event.getLocalState();
+                        //TODO: create copies of imgview to put multiple pieces on
                         ViewGroup viewgroup = (ViewGroup) img.getParent();
                         viewgroup.removeView(img);
                         RelativeLayout containView = (RelativeLayout) v;
@@ -247,7 +300,7 @@ public class CanvasActivity extends SimpleActivity {
                 case DragEvent.ACTION_DRAG_ENDED:
                         View view = (View) event.getLocalState();
                         view.setVisibility(View.VISIBLE);
-                        if (event.getResult() == false){
+                        if (!event.getResult()){
                             toast("You can't drop this here");
                         }
                 default:

@@ -14,14 +14,14 @@
 
     <!--back button-->
     <ImageButton
-        android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
         android:background="#000000"
-        android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
+        android:id="@+id/detailBack"
+        android:src="@drawable/ic_ab_back_holo_dark"
         android:scaleType="fitCenter"
         android:layout_marginBottom="10dp"
-        android:onClick="goBack"
-        android:layout_weight="0.28" />
+        android:onClick="goBack"/>
     <!--middle stuff-->
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,42 +30,7 @@
         android:layout_weight="5"
         android:baselineAligned="false">
         <!--left side-->
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:orientation="vertical"-->
-            <!--android:layout_weight="1">-->
-            <!--&lt;!&ndash;one painting and text&ndash;&gt;-->
 
-            <!--<ImageView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:src="@drawable/sample_2"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_margin="10dp"-->
-                <!--android:id="@+id/OriginalImage"/>-->
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:orientation="vertical"-->
-                <!--android:layout_weight="3">-->
-                <!--<TextView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/originalTitle"-->
-                    <!--android:text=""-->
-                    <!--android:gravity="center_horizontal"/>-->
-
-                <!--<TextView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/originalArtist"-->
-                    <!--android:text=""-->
-                    <!--android:gravity="center_horizontal"/>-->
-            <!--</LinearLayout>-->
-
-        <!--</LinearLayout>-->
 
         <!--right side-->
         <LinearLayout
@@ -75,9 +40,10 @@
             android:layout_weight="1">
             <!--one painting and text-->
             <ImageView
-                android:layout_width="match_parent"
+                android:layout_width="600dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_height="match_parent"
-                android:src="@drawable/sample_4"
+                android:src="@drawable/m1"
                 android:id="@+id/MosaicImage"
                 android:layout_weight="1"
                 android:layout_margin="10dp"/>

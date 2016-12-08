@@ -5,15 +5,14 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 /**
  * Created by isabellacai on 11/27/16.
@@ -46,63 +45,64 @@ class ImageAdapter extends BaseAdapter {
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.WRAP_CONTENT, GridView.LayoutParams.WRAP_CONTENT));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(10, 10, 10, 10);
+            imageView.setLayoutParams(new GridView.LayoutParams(332, 300));
+            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            imageView.setBackgroundColor(Color.parseColor("#fff1ef"));
             imageView.setAdjustViewBounds(true);
-            imageView.setMaxHeight(400);
-            imageView.setMaxWidth(400);
+            imageView.setMaxHeight(350);
+            imageView.setMaxWidth(350);
         } else {
             imageView = (ImageView) convertView;
         }
         //CHECK IF THIS WORKS
-        Bitmap bm = null;
-        if (position < GlobalVariables.getInstance().initDrawables.length){
-            bm = BitmapFactory.decodeResource(mContext.getResources(), GlobalVariables.getInstance().initDrawables[position]);
-            //check if file exists already???
-            saveImage(bm, "m"+position);
+        if (position >= GlobalVariables.getInstance().startOfInitials){
+            Picasso.with(mContext).load(GlobalVariables.getInstance().initDrawables[position - GlobalVariables.getInstance().startOfInitials]).into(imageView);
         } else {
-            try {
                 ContextWrapper cw = new ContextWrapper((Application)mContext.getApplicationContext());
                 File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-                File f=new File(directory, "m"+position+".jpg");
-                bm = BitmapFactory.decodeStream(new FileInputStream(f));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+                File f=new File(directory, GlobalVariables.getInstance().mosaics.get(position).getMosaicSource());
+
+                Bitmap bm = decodeSampledBitmapFromResource(f.getPath(), 332, 300);
+                imageView.setImageBitmap(bm);
         }
-        imageView.setImageBitmap(bm);
-
-
-        //imageView.setImageResource(GlobalVariables.getInstance().mosaics.get(position).getMosaicSource());
         return imageView;
     }
 
-    private void saveImage(Bitmap bm, String filename){
-        ContextWrapper cw = new ContextWrapper((Application)mContext.getApplicationContext());
-        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-        filename = filename + ".jpg";
-        // Create imageDir
-        File path=new File(directory, filename);
-        if (!path.exists()) {
-            FileOutputStream fos = null;
-            try {
-                fos = new FileOutputStream(path);
-                // Use the compress method on the BitMap object to write image to the OutputStream
-                bm.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) >= reqHeight
+                    && (halfWidth / inSampleSize) >= reqWidth) {
+                inSampleSize *= 2;
             }
         }
+
+        return inSampleSize;
     }
+    public static Bitmap decodeSampledBitmapFromResource(String pathname,
+                                                         int reqWidth, int reqHeight) {
 
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(pathname, options);
 
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
 
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(pathname, options);
+    }
 
         }
