@@ -18,6 +18,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.w3c.dom.Text;
 
 import java.io.ByteArrayInputStream;
@@ -54,13 +56,12 @@ public class SaveActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         filename = intent.getStringExtra("filename");
-            ContextWrapper cw = new ContextWrapper(getApplicationContext());
-            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-            File f=new File(directory, filename);
-            bm = BitmapFactory.decodeFile(f.getPath());
-            ImageView img = (ImageView)findViewById(R.id.toSave);
-            img.setImageBitmap(bm);
 
+        ImageView img = (ImageView)findViewById(R.id.toSave);
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        File f=new File(directory, filename);
+        Picasso.with(this).load(f).into(img);
     }
 
     public void goHome(View view) {
@@ -71,7 +72,7 @@ public class SaveActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
-                        bm.recycle();
+                        //bm.recycle();
                         Intent intent = new Intent(SaveActivity.this, MainActivity.class);
                         startActivity(intent);
                     }
@@ -110,7 +111,7 @@ public class SaveActivity extends AppCompatActivity {
     }
 
     public void saveAndReturn(View view) {
-        bm.recycle();
+        //bm.recycle();
         EditText name = (EditText)findViewById(R.id.name);
         String typedInName = name.getText().toString();
         if (typedInName.equals("")) typedInName = "Anonymous";

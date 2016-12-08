@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.File;
 
 import stanford.androidlib.SimpleActivity;
@@ -29,10 +31,10 @@ public class ViewMosaicActivity extends SimpleActivity {
             ContextWrapper cw = new ContextWrapper(getApplicationContext());
             File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
             File f = new File(directory, chosenMosaic.getMosaicSource());
-            bm = BitmapFactory.decodeFile(f.getPath());
-            mosaicImg.setImageBitmap(bm);
+            Picasso.with(this).load(f).into(mosaicImg);
         } else {
-            mosaicImg.setImageDrawable(getResources().getDrawable(GlobalVariables.getInstance().initDrawables[position - GlobalVariables.getInstance().startOfInitials]));
+            Picasso.with(this).load(GlobalVariables.getInstance().initDrawables[position - GlobalVariables.getInstance().startOfInitials]).into(mosaicImg);
+
         }
         TextView creator = findTextView(R.id.mosaicAuthor);
         TextView date = findTextView(R.id.dateCreated);
