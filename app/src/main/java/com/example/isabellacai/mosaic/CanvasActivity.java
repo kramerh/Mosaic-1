@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.view.DragEvent;
-import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.View.DragShadowBuilder;
@@ -46,8 +45,6 @@ public class CanvasActivity extends SimpleActivity {
     private Matrix mMatrix = new Matrix();
     private float mScale = 1f;
 
-    private ImageView currentImg;
-    private boolean inPinch = false;
 /** Called when the activity is first created. */
 
     @Override
@@ -57,7 +54,6 @@ public class CanvasActivity extends SimpleActivity {
         TextView title = (TextView) findViewById(R.id.canvasText);
         Button done = findButton(R.id.canvasDoneButton);
         Typeface sourcebold = Typeface.createFromAsset(getAssets(), "fonts/sourcesansprobold.ttf");
-        Typeface source = Typeface.createFromAsset(getAssets(), "fonts/sourcesanspro.ttf");
         title.setTypeface(sourcebold);
         done.setTypeface(sourcebold);
 
@@ -69,13 +65,6 @@ public class CanvasActivity extends SimpleActivity {
         piece4 = (ImageView)findViewById(R.id.img4);
         piece5 = (ImageView)findViewById(R.id.img5);
         piece6 = (ImageView)findViewById(R.id.img6);
-
-        myImage1 = (ImageView)findViewById(R.id.image1);
-        myImage1.setTag(IMAGEVIEW_TAG);
-        myImage1.setOnLongClickListener(new MyClickListener());
-        ViewGroup viewgroup = (ViewGroup) myImage1.getParent();
-        viewgroup.removeView(myImage1);
-
 
         // Sets the tag
         piece1.setTag(IMAGEVIEW_TAG);
@@ -96,32 +85,8 @@ public class CanvasActivity extends SimpleActivity {
 
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
         directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-        mSGD = new ScaleGestureDetector(this, new ScaleListener());
         findViewById(R.id.options).setOnDragListener(new MyDragListener());
         findViewById(R.id.canvas).setOnDragListener(new MyDragListener());
-        myImage1.setOnTouchListener(new View.OnTouchListener(){
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                currentImg = (ImageView) v;
-                switch (event.getAction() & MotionEvent.ACTION_MASK){
-                    case MotionEvent.ACTION_UP:
-                        inPinch = false;
-                        int width = (int) (myImage1.getWidth()*mScale);
-                        int height = (int) (myImage1.getHeight()*mScale);
-                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, height);
-                        myImage1.setLayoutParams(params);
-                        log("after scaling: " + myImage1.getWidth() + ", " + myImage1.getHeight());
-                    default:
-                        break;
-                }
-                if(event.getPointerCount() > 1) {
-                    inPinch = true;
-                    mSGD.onTouchEvent(event);
-                    return true;
-                }
-                return false;
-            }
-        });
 
     }
 
@@ -170,21 +135,7 @@ public class CanvasActivity extends SimpleActivity {
     }
 
 
-    private class ScaleListener extends ScaleGestureDetector.
-            SimpleOnScaleGestureListener {
-        @Override
-        public boolean onScale(ScaleGestureDetector detector) {
-            mScale *= detector.getScaleFactor();
-            mScale = Math.max(0.1f, Math.min(mScale, 5.0f));
-            mMatrix.setScale(mScale, mScale);
-            myImage1.setImageMatrix(mMatrix);
-            return true;
-        }
-
-    }
-
     private void saveImage(Bitmap bm, String filename){
-        //filename = filename + ".jpg";
         // Create imageDir
         File path=new File(directory, filename);
         FileOutputStream fos = null;
@@ -192,7 +143,6 @@ public class CanvasActivity extends SimpleActivity {
             fos = new FileOutputStream(path);
             // Use the compress method on the BitMap object to write image to the OutputStream
             bm.compress(Bitmap.CompressFormat.PNG, 40, fos);
-            //toast("success");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -222,7 +172,6 @@ public class CanvasActivity extends SimpleActivity {
                 // called when the item is long-clicked
         @Override
         public boolean onLongClick(View view) {
-            if (!inPinch) {
                 // create it from the object's tag
                 ClipData.Item item = new ClipData.Item((CharSequence) view.getTag());
                 String[] mimeTypes = {ClipDescription.MIMETYPE_TEXT_PLAIN};
@@ -231,8 +180,6 @@ public class CanvasActivity extends SimpleActivity {
                 view.startDrag(data, shadowBuilder, view, 0);
                 view.setVisibility(View.INVISIBLE);
                 return true;
-            }
-            return false;
         }
     }
 

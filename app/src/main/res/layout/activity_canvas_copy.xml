@@ -78,16 +78,6 @@
         android:padding="0px"
         android:layout_weight="8">
         <!--THE CANVAS HERE LHEELEFJSELFJWEIOJIO-->
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/piece2"
-            android:id="@+id/image1"
-            android:scaleType="matrix"
-            android:maxHeight="100dp"
-            android:maxWidth="300dp"
-            android:visibility="invisible"
-            />
     </RelativeLayout>
 
 
