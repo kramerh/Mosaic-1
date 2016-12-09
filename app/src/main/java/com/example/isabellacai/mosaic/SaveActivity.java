@@ -58,7 +58,6 @@ public class SaveActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         filename = intent.getStringExtra("filename");
-        Toast.makeText(this, "filename is: "+ filename, Toast.LENGTH_SHORT).show();
 
         ImageView img = (ImageView)findViewById(R.id.toSave);
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
