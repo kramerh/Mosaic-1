@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -26,6 +27,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,6 +35,7 @@ import java.util.Locale;
 
 public class SaveActivity extends AppCompatActivity {
     private String filename = "";
+    private File f;
     private Bitmap bm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,15 +56,22 @@ public class SaveActivity extends AppCompatActivity {
         name.setTypeface(open);
         comments.setTypeface(open);
 
-
         Intent intent = getIntent();
         filename = intent.getStringExtra("filename");
+        Toast.makeText(this, "filename is: "+ filename, Toast.LENGTH_SHORT).show();
 
         ImageView img = (ImageView)findViewById(R.id.toSave);
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-        File f=new File(directory, filename);
-        Picasso.with(this).load(f).into(img);
+        f=new File(directory, filename);
+        Bitmap bm = BitmapFactory.decodeFile(f.getPath());
+        img.setImageBitmap(bm);
+    }
+
+    @Override
+    protected void onPause() {
+        finish();
+        super.onPause();
     }
 
     public void goHome(View view) {
@@ -72,7 +82,6 @@ public class SaveActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
-                        //bm.recycle();
                         Intent intent = new Intent(SaveActivity.this, MainActivity.class);
                         startActivity(intent);
                     }
@@ -111,7 +120,6 @@ public class SaveActivity extends AppCompatActivity {
     }
 
     public void saveAndReturn(View view) {
-        //bm.recycle();
         EditText name = (EditText)findViewById(R.id.name);
         String typedInName = name.getText().toString();
         if (typedInName.equals("")) typedInName = "Anonymous";

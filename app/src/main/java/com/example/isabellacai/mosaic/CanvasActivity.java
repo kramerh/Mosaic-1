@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.io.File;
@@ -151,7 +152,8 @@ public class CanvasActivity extends SimpleActivity {
         File path=new File(directory, filename);
         FileOutputStream fos = null;
         try {
-            fos = new FileOutputStream(path);
+            if (path.exists()) path.delete();
+                fos = new FileOutputStream(path);
             // Use the compress method on the BitMap object to write image to the OutputStream
             bm.compress(Bitmap.CompressFormat.PNG, 40, fos);
         } catch (Exception e) {
@@ -176,6 +178,12 @@ public class CanvasActivity extends SimpleActivity {
         intent.putExtra("filename", filename);
         bm.recycle();
         startActivity(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        finish();
+        super.onPause();
     }
 
     private final class MyClickListener implements OnLongClickListener {

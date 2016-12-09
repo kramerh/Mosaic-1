@@ -17,18 +17,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="11">
+        android:layout_weight="9">
 
-        <!--<Button-->
-        <!--android:text="<&#45;&#45;"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/canvasBackButton"-->
-        <!--android:layout_weight="0.33"-->
-        <!--android:textSize="25sp"-->
-        <!--android:onClick="saveBitmap"-->
-        <!--android:textColor="@android:color/white"-->
-        <!--android:background="@android:color/black"/>-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -69,17 +59,23 @@
             android:id="@+id/leftButton"
             android:layout_weight="1"
             android:onClick="goToCreate"
-            android:layout_margin="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="90dp"
+            android:layout_gravity="center_vertical"
             android:background="#000000"
             android:scaleType="fitXY"/>
         <ImageButton
             android:layout_width="250dp"
             android:layout_height="275dp"
-            app:srcCompat="@drawable/level2"
+            android:src="@drawable/level2"
             android:id="@+id/middleButton"
             android:layout_weight="1"
             android:onClick="goToCreate"
-            android:layout_margin="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="90dp"
+            android:layout_gravity="center_vertical"
             android:background="#000000"
             android:scaleType="fitXY"/>
         <ImageButton
@@ -89,13 +85,14 @@
             android:id="@+id/rightButton"
             android:layout_weight="1"
             android:onClick="goToCreate"
-            android:layout_margin="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="90dp"
+            android:layout_gravity="center_vertical"
             android:background="#000000"
             android:scaleType="fitXY"/>
 
     </LinearLayout>
-
-
 
 
 </LinearLayout>
