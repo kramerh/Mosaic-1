@@ -212,7 +212,7 @@ public class CanvasActivity extends SimpleActivity {
 //
 //                //the user has moved the drag shadow outside the bounding box of the View
 //                case DragEvent.ACTION_DRAG_EXITED:
-                //TODO: add some lil didactics up in here
+                //TODO: add didactics here
 //                   // v.setBackground(getResources().getDrawable(R.drawable.sample_0));
 //                    //v.setBackgroundColor(Color.BLUE); this is if it exits anything
 //                    break;
@@ -256,36 +256,21 @@ public class CanvasActivity extends SimpleActivity {
                             img.setY(yOrigin);
                         img.setVisibility(View.VISIBLE);
                     } else if((v == box1 || v == box2 || v == box3 || v == box4 || v == box5 || v == box6 || v == box7) && v != options){
-                        ImageView img = (ImageView) event.getLocalState();
                         //TODO: create copies of imgview to put multiple pieces on
+                        ImageView img = (ImageView) event.getLocalState();
                         RelativeLayout viewgroup = (RelativeLayout) img.getParent();
                         viewgroup.removeView(img);
                         RelativeLayout containView = (RelativeLayout) v;
                         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                                 img.getWidth(), img.getHeight());
-                        containView.addView(img, params);
-                        //containView.setLayoutParams(params);
-                        img.setVisibility(View.VISIBLE);
-                        containView.bringChildToFront(img);
                         params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+                        containView.addView(img, params);
+                        img.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        img.setX(0);
+                        img.setY(0);
+                        img.setVisibility(View.VISIBLE);
                         img.setLayoutParams(params);
-                        toast("here (" + img.getX() +", " + img.getY()+")");
-//                        float xOrigin = event.getX() - (img.getWidth() / 2);
-//                        float yOrigin = event.getY() - (img.getHeight() / 2);
-//                        if (xOrigin < 0)
-//                            img.setX(0);
-//                        else if (xOrigin + img.getWidth() > canvas.getWidth())
-//                            img.setX(canvas.getWidth() - img.getWidth());
-//                        else
-//                            img.setX(xOrigin);
-//                        if (yOrigin < 0)
-//                            img.setY(0);
-//                        else if (yOrigin + img.getHeight() > canvas.getHeight())
-//                            img.setY(canvas.getHeight() - img.getHeight());
-//                        else
-//                            img.setY(yOrigin);
-
-                    }else {
+                    } else {
                         View view = (View) event.getLocalState();
                         view.setVisibility(View.VISIBLE);
                         toast("You can't drop this here yo", 1);
